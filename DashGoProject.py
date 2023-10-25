@@ -28,6 +28,8 @@ while continueLoop:
     artistName = input("Specify Artist Name: ")
     month = input("Choose Month (MM): ")
     year = input("Choose Year (YY): ")
+    
+    print(" ") #Line Break
 
     #--DashGo--
     if distributionService == "1":
@@ -77,13 +79,13 @@ while continueLoop:
             print(" ") #Line Break
             
         elif operation == "2":
-            #print ("no operation 2 yet.")
+            print ("--- ALL TRACKS (PAYABLE) ---")
             
             print("")
             RAPB_Payable = RAPB['Payable']
             RAPB_Payable_Labels = RAPB['Track Title']
             
-            plt.pie(RAPB_Payable, labels = RAPB_Payable_Labels)
+            plt.pie(RAPB_Payable, labels = RAPB_Payable_Labels, autopct='%.1f')
             plt.show()
             
 
