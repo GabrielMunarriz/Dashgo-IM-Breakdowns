@@ -8,13 +8,13 @@ continueLoop = True
 while continueLoop:
     
     #---User Input---
+    operation = input("Choose Operation (1. Show Breakdown): ")
     distributionService = input("Choose Distribution Service (DashGo or IdentityMusic): ")
     artistName = input("Specify Artist Name: ")
     month = input("Choose Month (MM): ")
     year = input("Choose Year (YY): ")
 
-
-    if distributionService.upper() == "DG" or "DASHGO":
+    if distributionService.upper() == "DG" or distributionService.upper() == "DASHGO":
 
         #---Create Filename String---
         #Format: artistname-MM-YY.csv (e.g. landq-09-23.csv)
@@ -31,23 +31,29 @@ while continueLoop:
                                                                                          #When self-releasing, rows are duplicated because I am both the label and the artist and a row is created for each "side" of the release.
                                                                                          #a row X with 0.0% Deal Share is created on the label's side while an identical row X with 100% deal share is created on the artist's side
                                                                                          #It is this way because I made 100% of royalties go to the artist (Me) for self-releases.
+        
+        if operation == "1":
+        
+            #---Revenue and Payable Breakdown---
+            RAPB = DashGoCSV.groupby(['Track Title', 'Label Name','Distribution Rate','Deal Share'])[['Net Revenue','Payable']].sum() #Formatting
+            RAPB = RAPB.sort_values(by = ['Payable'], ascending=[False]) #Sort
+            #RAPB
+            print("Breakdown")
+            print(RAPB)
 
-        #---Revenue and Payable Breakdown---
-        RAPB = DashGoCSV.groupby(['Track Title', 'Label Name','Distribution Rate','Deal Share'])[['Net Revenue','Payable']].sum() #Formatting
-        RAPB = RAPB.sort_values(by = ['Payable'], ascending=[False]) #Sort
-        #RAPB
-        print("Breakdown")
-        print(RAPB)
+            print(" ") #Line Break
 
-        print(" ") #Line Break
+            #---Revenue and Payable Summary---
+            RAPB_Stats = RAPB.sum()
+            #RAPB_Stats
+            print("Summary")
+            print(RAPB_Stats)
+            
+        elif operation == "2":
+            print ("no operation 2 yet.")
 
-        #---Revenue and Payable Summary---
-        RAPB_Stats = RAPB.sum()
-        #RAPB_Stats
-        print("Summary")
-        print(RAPB_Stats)
-
-    elif distributionService.upper() == "IM" or "IDENTITYMUSIC":
+    elif distributionService.upper() == "IM" or distributionService.upper() == "IDENTITYMUSIC":
+        
         print("No IdentityMusic Functionality yet")
     
     print(" ") #Line Break
