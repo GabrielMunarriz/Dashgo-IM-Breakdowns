@@ -77,14 +77,34 @@ while continueLoop:
             print(" ") #Line Break
             
         elif operation == "2":
-            #print ("no operation 2 yet.")
             
-            print("")
-            RAPB_Payable = RAPB['Payable']
-            RAPB_Payable_Labels = RAPB['Track Title']
+            print("---TOP 5 RELEASES (PAYABLE)---")
             
-            plt.pie(RAPB_Payable, labels = RAPB_Payable_Labels)
+            #We get the "Payable" Column from RAPB
+            RAPB_Payable_Full = RAPB['Payable']
+            RAPB_Titles_Full = RAPB['Track Title']
+            
+            #Then we get a copy of the top 5 from "Payable" (Incomplete)
+            RAPB_Payable_Top5AndOthers = RAPB_Payable_Full[:5].copy()
+            RAPB_Titles_Top5AndOthers = RAPB_Titles_Full[:5].copy()
+            
+            #Then we create a new row for "others"
+            #others_Row = pd.DataFrame(data = {
+            #    'Track Title' : ['Other Tracks'],
+            #    'Payable' : [RAPB_Payable_Full[5:].sum()]
+            #})
+            others_Row_Payable = RAPB_Payable_Full[5:].sum()
+            others_Row_Title = ['Other Tracks']
+            
+            #Then we combine RAPB_Payable_Top5AndOthers (Incomplete) and others_Row to complete RAPB_Payable_Top5AndOthers
+            RAPB_Payable_Top5AndOthers = RAPB_Payable_Top5AndOthers + others_Row_Payable
+            RAPB_Titles_Top5AndOthers = RAPB_Titles_Top5AndOthers + others_Row_Title
+            
+            #RAPB_Payable_Labels = RAPB_Payable_Top5AndOthers['Track Title']
+            plt.pie(RAPB_Payable_Top5AndOthers, labels = RAPB_Titles_Top5AndOthers, autopct='%.1f%%')
             plt.show()
+            
+            print("") #Line Break
             
 
     #--IdentityMusic--
