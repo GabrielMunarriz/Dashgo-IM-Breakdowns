@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 #from sklearn.impute import SimpleImputer
 
 #---While Loop---
@@ -7,14 +8,29 @@ continueLoop = True
 
 while continueLoop:
     
+    #---Welcome Message---
+    print("--Music Royalties Statement Analyzer--")
+    print(" ") #Line Break
+    print("Choose Distribution Service and Operation through corresponding number.")
+    print(" ") #Line Break
+    print("--Current Distribution Services--")
+    print("'1' - DashGo.")
+    print("'2' - IdentityMusic.")
+    print(" ") #Line Break
+    print("--Current Operations--")
+    print("'1' - Show Breakdown.")
+    print("'2' - Show Pie Chart.")
+    print(" ") #Line Break
+    
     #---User Input---
-    operation = input("Choose Operation (1. Show Breakdown): ")
-    distributionService = input("Choose Distribution Service (DashGo or IdentityMusic): ")
+    distributionService = input("Choose Distribution Service: ")
+    operation = input("Choose Operation: ")
     artistName = input("Specify Artist Name: ")
     month = input("Choose Month (MM): ")
     year = input("Choose Year (YY): ")
 
-    if distributionService.upper() == "DG" or distributionService.upper() == "DASHGO":
+    #--DashGo--
+    if distributionService == "1":
 
         #---Create Filename String---
         #Format: artistname-MM-YY.csv (e.g. landq-09-23.csv)
@@ -52,7 +68,8 @@ while continueLoop:
         elif operation == "2":
             print ("no operation 2 yet.")
 
-    elif distributionService.upper() == "IM" or distributionService.upper() == "IDENTITYMUSIC":
+    #--IdentityMusic--
+    elif distributionService == "2":
         
         print("No IdentityMusic Functionality yet")
     
@@ -61,6 +78,7 @@ while continueLoop:
 
     #Ask to continue analyzing files or not.
     continueLoop_Query = input("Would you like to break down another file (Y/N)?: ")
+    print(" ") #Line Break
     
     if continueLoop_Query.upper() == "Y":
         continueLoop = True
